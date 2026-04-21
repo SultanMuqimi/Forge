@@ -1,293 +1,131 @@
-# CLAUDE.md — React Frontend (Vite + TypeScript)
-### Forge Stack Rules | React Frontend in React+Node Projects
+# CLAUDE.md — React Frontend (React + Node.js)
+### Forge Stack Rules | Production-grade React Frontend
 
 ---
 
-This file extends the universal CLAUDE.md. Read that first. This file covers the React frontend in projects that use a separate Node.js backend.
+This file extends the universal CLAUDE.md. Read that first.
+
+Read this file fully before writing any frontend code.
 
 ---
 
-## WHEN TO USE THIS STACK
+## TECHNOLOGY STACK — use exactly these, nothing else
 
-- Business apps with a separate backend API
-- Admin dashboards and internal tools
-- SPAs that don't need SEO
-- Projects where frontend and backend are deployed independently
+- React 18 + TypeScript + Vite — base framework, never Create React App
+- Tailwind CSS — all styling, zero custom CSS files
+- shadcn/ui — component library (components copied into project, no runtime bloat)
+- Framer Motion — animations only, used sparingly (see Performance rules)
+- TanStack Query (React Query v5) — all server state, caching, and API calls
+- Zustand — global client state only (auth user, cart, language)
+- React Router v6 — routing with lazy-loaded pages
+- Axios — HTTP client with JWT interceptors
+- react-i18next — Arabic/English language switching with full RTL/LTR support
+- React Hook Form + Zod — all forms and validation, no uncontrolled inputs
 
----
+Never install a second UI library alongside shadcn/ui.
+Never install a second animation library alongside Framer Motion.
+Never install Redux — Zustand is the state manager.
 
-## TECHNOLOGY STANDARDS
+## DESIGN SYSTEM
 
-### Required
-- **React 18+** with functional components and hooks only
-- **Vite** as the build tool (never Create React App)
-- **TypeScript** strict mode
-- **Tailwind CSS** for styling
-- **React Router v6+** for routing
+### Colors (default palette — override per project if branded)
+- Primary: #1D4ED8 (deep blue)
+- Accent: #F97316 (vibrant orange for CTAs, highlights, badges)
+- Success: #10B981 (emerald)
+- Error: #EF4444 (red)
+- Background: #FFFFFF and #F9FAFB
+- Text primary: #111827
+- Text muted: #6B7280
+- Cards: white background, subtle shadow, rounded-xl corners
 
-### Required Libraries
-- **TanStack Query (React Query)** for server state
-- **Zustand** for client state (only when needed)
-- **React Hook Form** + **Zod** for forms
-- **Axios** or **Fetch** wrapper for API calls
-- **shadcn/ui** for component primitives
-- **Lucide React** for icons
+### Typography
+- Arabic: Noto Sans Arabic
+- English headlines: Plus Jakarta Sans
+- Body: Inter
+- Bilingual pattern when needed: Arabic headline above, English subtitle below
+- Never mix more than two font families in the same view
 
----
+### Mode
+- Light mode only by default — no dark mode unless explicitly requested
+- Feel: vibrant, alive, trustworthy — retail energy, not developer tooling
+- Reference aesthetic: modern fintech meets premium retail
+
+### RTL / LTR
+- Full RTL support via react-i18next + Tailwind RTL plugin
+- Language switcher available on every page when app targets Arabic users
+- Never hardcode text direction — always derive from i18n context
+- All spacing, padding, and flex direction must respect RTL automatically via Tailwind logical properties (ms-*, me-*, ps-*, pe-*)
+
+## PERFORMANCE RULES
+
+- Lazy load every route with React.lazy() and Suspense
+- Never import an entire icon library — import icons individually
+- Images always use loading="lazy" with explicit width and height
+- Framer Motion allowed only on: page transitions, card hover, cart additions, success states — nowhere else
+- TanStack Query handles ALL server state — never useState for API data
+- Zustand stores ONLY: authenticated user, cart items, current language
+- Never fetch data directly in a component — always through a custom hook using React Query
 
 ## FOLDER STRUCTURE
-
 ```
-frontend/
-├── CLAUDE.md
-├── .env.example
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-├── tailwind.config.ts
-├── index.html
-├── public/
+client/
 └── src/
-    ├── main.tsx
-    ├── App.tsx
-    ├── routes/                    (route definitions)
-    ├── pages/                     (page components)
     ├── components/
-    │   ├── ui/                    (shadcn components)
-    │   └── features/              (feature-specific)
-    ├── hooks/                     (custom hooks)
-    ├── services/                  (API calls organized by feature)
-    ├── stores/                    (Zustand stores)
-    ├── lib/
-    │   ├── api.ts                 (axios instance with interceptors)
-    │   └── utils.ts
-    ├── types/
-    └── styles/
+    │   ├── ui/          ← shadcn/ui base components only
+    │   └── shared/      ← reusable across features
+    ├── features/        ← one folder per feature
+    │   └── [feature]/
+    │       ├── components/
+    │       ├── hooks/
+    │       ├── api/
+    │       └── types/
+    ├── hooks/           ← global custom hooks
+    ├── lib/             ← axios instance, utils, i18n config
+    ├── pages/           ← route-level components, lazy-loaded
+    ├── store/           ← Zustand stores
+    └── types/           ← global TypeScript types
 ```
 
----
+## CODE RULES
 
-## COMPONENT RULES
+- TypeScript strict mode — no .jsx files, ever
+- Props always typed with `interface`, never inline object types
+- No component longer than 150 lines — split if it grows beyond that
+- No try-catch in components — errors handled by React Query error states and a global error boundary
+- All API calls live in `feature/api/` using React Query hooks
+- Base URL always from environment variable `VITE_API_URL` — never hardcoded
+- JWT token attached via Axios interceptor — never added manually per request
+- On 401 response: automatically attempt token refresh, redirect to login if refresh fails
+- All forms use React Hook Form with Zod schema validation — no uncontrolled inputs
+- All user-facing strings go through react-i18next — never hardcode Arabic or English text
 
-- Functional components only — no class components
-- One component per file
-- Co-locate tests with components (`Button.tsx` + `Button.test.tsx`)
-- Small components — if over 200 lines, split it
-- Props are typed with TypeScript interfaces, never `any`
+## SECURITY
 
-### Component Structure
-```typescript
-interface UserCardProps {
-  user: User
-  onEdit?: (user: User) => void
-}
-
-export function UserCard({ user, onEdit }: UserCardProps) {
-  // hooks first
-  const [isHovered, setIsHovered] = useState(false)
-  
-  // derived values
-  const displayName = user.name || user.email
-  
-  // handlers
-  const handleClick = () => {
-    onEdit?.(user)
-  }
-  
-  // render
-  return (
-    <div onClick={handleClick}>
-      {displayName}
-    </div>
-  )
-}
-```
-
----
-
-## STATE MANAGEMENT
-
-### Server State — TanStack Query Only
-- Never store server data in Zustand or useState
-- Configure a single `QueryClient` at the app root
-- Use `useQuery` for reads, `useMutation` for writes
-- Set reasonable stale times and cache times
-- Invalidate queries after mutations
-
-### Client State — Hierarchy
-1. **Local state** (`useState`) — component-level UI state
-2. **URL state** — anything shareable/bookmarkable belongs in URL params
-3. **Context** — for theme, auth session, rarely-changing global state
-4. **Zustand** — for complex client state that spans many components
-
-**Never put server data in client state stores.**
-
----
-
-## API CALLS
-
-### Centralized Client
-```typescript
-// src/lib/api.ts
-import axios from 'axios'
-
-export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  timeout: 10000,
-})
-
-api.interceptors.request.use((config) => {
-  const token = getAuthToken()
-  if (token) config.headers.Authorization = `Bearer ${token}`
-  return config
-})
-
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // handle logout
-    }
-    return Promise.reject(error)
-  }
-)
-```
-
-### Service Layer
-- All API calls go through `src/services/[feature].ts`
-- Components never call `api` directly — they call services
-- Services are typed and handle response parsing
-
-```typescript
-// src/services/users.ts
-import { api } from '@/lib/api'
-import type { User } from '@/types'
-
-export const usersService = {
-  async list(): Promise<User[]> {
-    const { data } = await api.get<User[]>('/users')
-    return data
-  },
-  async get(id: string): Promise<User> {
-    const { data } = await api.get<User>(`/users/${id}`)
-    return data
-  },
-  async create(input: CreateUserInput): Promise<User> {
-    const { data } = await api.post<User>('/users', input)
-    return data
-  },
-}
-```
-
----
-
-## ROUTING
-
-- Use React Router v6+ with `createBrowserRouter`
-- Define routes declaratively in `src/routes/`
-- Protected routes use a wrapper component, not manual checks in each page
-- Lazy-load route components for code splitting
-
-```typescript
-const DashboardPage = lazy(() => import('@/pages/dashboard'))
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <RootLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-      {
-        path: 'dashboard',
-        element: <ProtectedRoute><DashboardPage /></ProtectedRoute>,
-      },
-    ],
-  },
-])
-```
-
----
-
-## FORMS
-
-Same pattern as Next.js stack:
-- React Hook Form + Zod
-- Validation schemas defined separately from components
-- Show errors inline
-- Disable submit during submission
-- Handle server errors gracefully
-
----
-
-## PERFORMANCE
-
-- Lazy-load routes with `React.lazy` and `Suspense`
-- Memoize expensive calculations with `useMemo`
-- Memoize callback props with `useCallback` when passed to memoized children
-- Use `React.memo` only when profiling shows it helps — not preemptively
-- Debounce search inputs (300ms default)
-- Virtualize long lists (react-virtual or similar)
-
----
-
-## STYLING
-
-- Tailwind utility classes
-- Use `cn()` utility for conditional classes:
-```typescript
-import { clsx, type ClassValue } from 'clsx'
-import { twMerge } from 'tailwind-merge'
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
-```
-- Extract repeated combinations into components
-- Mobile-first responsive design
-
----
+- Never store JWT access token in localStorage — use memory (Zustand) for access token, httpOnly cookie for refresh token
+- Never log tokens, user data, or API responses to console in production
+- Sanitize all user input before display — never use dangerouslySetInnerHTML unless explicitly required and sanitized (use DOMPurify)
+- All environment variables prefixed with `VITE_` — never expose server secrets in the frontend build
+- Content Security Policy headers set on the hosting platform
+- HTTPS only in production — no mixed content
 
 ## TESTING
 
-- **Vitest** for unit tests
-- **React Testing Library** for component tests
-- **Playwright** for E2E tests
-- Test behavior, not implementation details
-- Queries preference order: `getByRole`, `getByLabelText`, `getByText`, `getByTestId` (last resort)
+- Unit test every custom hook with Vitest + Testing Library
+- Test form validation logic separately from the component
+- Mock API calls with MSW (Mock Service Worker) — never mock Axios directly
+- Test RTL layout separately from LTR — direction switching must be verified
+- Minimum: one happy-path test per page, one validation test per form
 
----
+## SESSION COMPLETION CHECKLIST
 
-## ERROR HANDLING
-
-- Use Error Boundaries at route level minimum
-- Show user-friendly error messages
-- Log errors to a monitoring service in production (Sentry, etc.)
-- TanStack Query errors: handle in `onError` callback or via global error handler
-
----
-
-## ENVIRONMENT VARIABLES
-
-- All Vite env vars must start with `VITE_`
-- Document every variable in `.env.example`
-- Typical variables:
-```
-VITE_API_URL=http://localhost:3001
-VITE_APP_NAME=
-```
-
----
-
-## SESSION COMPLETION CHECKLIST — REACT FRONTEND SPECIFIC
-
-- [ ] `npm run build` completes successfully
-- [ ] No TypeScript errors
-- [ ] No ESLint errors
-- [ ] No console errors or warnings in the browser
-- [ ] All routes are properly protected
-- [ ] API calls go through the service layer
-- [ ] Loading and error states exist for all data-fetching views
-- [ ] Forms validate correctly and show errors
+Before ending any frontend session:
+- [ ] `npm run build` succeeds with zero TypeScript errors
+- [ ] `npm run lint` passes
+- [ ] All new routes are lazy-loaded
+- [ ] All user-facing strings go through i18n
+- [ ] RTL layout verified in Arabic mode
+- [ ] No console.log statements left in code
+- [ ] README updated with any new environment variables
 
 ---
 

@@ -206,13 +206,41 @@ export const config = {
 
 ---
 
-## STYLING — TAILWIND CSS
+## Frontend Stack & Design System
 
-- Use Tailwind utility classes — no custom CSS files unless absolutely necessary
-- Use `clsx` or `cn()` utility for conditional classes
-- Extract repeated class combinations into components, not into CSS classes
-- Mobile-first responsive design — start with mobile styles, add `md:`, `lg:` breakpoints
-- Dark mode support using `dark:` variants when the project requires it
+### Technology stack (use exactly these)
+- Next.js 14+ App Router + TypeScript — base
+- Tailwind CSS — all styling, zero custom CSS files
+- shadcn/ui — component library
+- Framer Motion — animations only, used sparingly
+- TanStack Query (React Query v5) — client-side data fetching only (server components handle SSR fetching)
+- Zustand — global client state (auth, cart, language)
+- react-i18next — Arabic/English language switching with RTL/LTR support
+- React Hook Form + Zod — all forms and validation
+- Next.js Image component — all images, never raw `<img>` tags
+
+Never install a second UI library alongside shadcn/ui.
+Never install a second animation library alongside Framer Motion.
+
+### Design system
+- Primary: #1D4ED8, Accent: #F97316, Success: #10B981, Error: #EF4444
+- Background: #FFFFFF / #F9FAFB, Text: #111827 / #6B7280
+- Cards: white, subtle shadow, rounded-xl
+- Fonts: Noto Sans Arabic (Arabic), Plus Jakarta Sans (headlines), Inter (body)
+- Light mode only by default
+- Full RTL/LTR support via react-i18next + Tailwind RTL plugin
+
+### Performance rules
+- Server Components for all data fetching — Client Components only when interactivity is required
+- Lazy load Client Components with `dynamic()` and `{ ssr: false }` when needed
+- Framer Motion only on: page transitions, card hover, cart additions, success states
+- Never import entire icon libraries — import individually
+- All images via Next.js Image with explicit width and height
+
+### Frontend security
+- Never store JWT access token in localStorage — memory only
+- Server secrets in plain env vars, client-safe values prefixed with `NEXT_PUBLIC_`
+- Never use `dangerouslySetInnerHTML` without DOMPurify sanitization
 
 ### shadcn/ui Components
 - Copy components into `src/components/ui/` — do not install as a dependency
