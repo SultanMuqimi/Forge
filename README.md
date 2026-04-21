@@ -1,14 +1,60 @@
 <div align="center">
 
-# 🚀 Forge
+<img src="https://readme-typing-svg.demolab.com?font=Bungee&size=90&duration=1&pause=99999&color=FF4500&center=true&vCenter=true&width=900&height=140&lines=%F0%9F%94%A5+FORGE+%F0%9F%94%A5" alt="FORGE"/>
 
-### Build any application with Claude — even if you've never written a line of code.
+<img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=900&size=26&duration=2500&pause=600&color=FFA500&center=true&vCenter=true&width=900&lines=HAMMER+YOUR+IDEA+INTO+PRODUCTION+CODE;BUILT+BY+FIRE.+SHIPPED+BY+CLAUDE.;NO+BOILERPLATE.+NO+SLOP.+ONLY+HEAT." alt="tagline"/>
 
-**An AI-powered application architect that interviews you, picks the right stack, and gives you ready-to-paste prompts for [Claude Code](https://claude.com/claude-code) — session by session, from idea to finished product.**
+<br/>
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Powered by Claude](https://img.shields.io/badge/Powered%20by-Claude-orange.svg)](https://claude.ai)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" height="3" alt="fire-line"/>
+
+<br/>
+
+## <img src="https://media.giphy.com/media/WTPFIihNlrW9FUGnwu/giphy.gif" width="40"/> **BUILD ANY APP WITH CLAUDE.** <img src="https://media.giphy.com/media/WTPFIihNlrW9FUGnwu/giphy.gif" width="40"/>
+## **EVEN IF YOU'VE NEVER WRITTEN A LINE OF CODE.**
+
+<br/>
+
+<table>
+<tr>
+<td align="center" width="33%">
+<img src="https://media.giphy.com/media/l0HlQXlQ3nHyLMvte/giphy.gif" width="80"/>
+<br/><b>🗣️ IT INTERVIEWS YOU</b>
+<br/><sub>No forms. No templates.<br/>Just questions that matter.</sub>
+</td>
+<td align="center" width="33%">
+<img src="https://media.giphy.com/media/QssGEmpkyEOhBCb7e1/giphy.gif" width="80"/>
+<br/><b>⚒️ PICKS YOUR STACK</b>
+<br/><sub>.NET, FastAPI, React, AI apps.<br/>Opinionated. Battle-tested.</sub>
+</td>
+<td align="center" width="33%">
+<img src="https://media.giphy.com/media/jTNYGDPapXOEw/giphy.gif" width="80"/>
+<br/><b>🔥 SHIPS PROMPTS</b>
+<br/><sub>Session by session.<br/>Paste into Claude Code. Go.</sub>
+</td>
+</tr>
+</table>
+
+<br/>
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" height="3" alt="fire-line"/>
+
+<br/>
+
+<a href="LICENSE"><img src="https://img.shields.io/badge/⚖️_MIT-FF4500?style=for-the-badge&labelColor=000000" alt="license"/></a>
+<a href="https://claude.ai/download"><img src="https://img.shields.io/badge/🤖_CLAUDE_CODE-FF6B00?style=for-the-badge&labelColor=000000" alt="claude"/></a>
+<img src="https://img.shields.io/badge/🔥_PRs_WELCOME-FFA500?style=for-the-badge&labelColor=000000" alt="prs"/>
+<img src="https://img.shields.io/badge/⚒️_FORGED_IN_OMAN-DC2626?style=for-the-badge&labelColor=000000" alt="oman"/>
+
+<br/><br/>
+
+<img src="https://img.shields.io/github/stars/SultanMuqimi/Forge?style=for-the-badge&logo=apachespark&color=FFA500&labelColor=000000&logoColor=FFA500" alt="stars"/>
+<img src="https://img.shields.io/github/forks/SultanMuqimi/Forge?style=for-the-badge&logo=git&color=FF4500&labelColor=000000&logoColor=FF4500" alt="forks"/>
+<img src="https://komarev.com/ghpvc/?username=SultanMuqimi-Forge&style=for-the-badge&color=DC2626&labelColor=000000&label=🔥_VIEWS" alt="views"/>
+
+<br/>
+
+<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" height="3" alt="fire-line"/>
 
 </div>
 
