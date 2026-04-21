@@ -10,7 +10,7 @@
 
 <br/>
 
-## <img src="https://media.giphy.com/media/WTPFIihNlrW9FUGnwu/giphy.gif" width="40"/> **BUILD ANY APP WITH CLAUDE.** <img src="https://media.giphy.com/media/WTPFIihNlrW9FUGnwu/giphy.gif" width="40"/>
+##  **BUILD ANY APP WITH CLAUDE.**
 ## **EVEN IF YOU'VE NEVER WRITTEN A LINE OF CODE.**
 
 <br/>
