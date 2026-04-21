@@ -697,7 +697,7 @@ PRs welcome — especially for new stacks, addons, error fixes, and translations
 
 ## Author
 
-Built by **Sultan Al-Muqimi** — Co-Founder & CEO, [NQTH LLC](https://github.com/SultanMuqimi)
+Built by **Sultan Al-Muqimi** — Co-Founder & CEO, [Qias](https://github.com/SultanMuqimi)
 
 If Forge helps you build something — star the repo, share it, tell someone who needs it. That's how it spreads.
 
